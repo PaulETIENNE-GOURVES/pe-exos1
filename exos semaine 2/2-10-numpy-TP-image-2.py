@@ -136,7 +136,6 @@ print(colors)
 ## 2 
 
 print(colors['Lime'], colors['Red'], colors['Blue'])
-print(colors.keys())
 
 
 # %%
@@ -157,7 +156,7 @@ def patchwork(clist, colors):
 
 ## 4  
     
-clist = np.random.choice(list(colors.keys()), 25)
+clist = np.random.choice(list(colors.keys()), 25) # on choisit 25 couleurs aléatoirement dans le dictionnaire pour tester
 pw = patchwork(clist, colors)
 
 print(pw)
@@ -226,7 +225,61 @@ plt.show()
 # regardez les valeurs différentes que vous avez dans votre image en noir et blanc
 
 # %%
-# votre code
+## 0
+
+im = plt.imread("les-mines.jpg")
+print(im.dtype)
+
+## 1 
+
+im1 = im[:, :, 0] + im[:, :, 1] + im[:, :, 2]
+
+## 2
+
+print(im1.max(), type(im1), im1.dtype)
+plt.imshow(im1)
+plt.show()
+
+# %%
+## 3
+
+im2 = np.sum(im, axis = 2)
+
+## 4 
+
+print(im2.max(), type(im2), im2.dtype)
+plt.imshow(im2)
+plt.show()
+
+# %%
+## 5
+
+# np.sum?
+
+# %% [markdown]
+# **5)** La documentation de la fonction précise : "Arithmetic is modular when using integer types, and no error is
+# raised on overflow". Ainsi, le dtype de l'array `im2` est adapté de uint8 à la base (voir le dtype de `im` à la question 1) à uint32 pour éviter que la somme ne crée un overflow. Rester en uint8 comme pour l'image `im1` borne les valeurs de somme entre 0 et 255. Cela explique la différence entre les deux images.
+
+# %%
+## 6
+
+im_gr = (im2 / im2.max() * 255).astype(np.uint8)
+plt.imshow(im_gr, cmap = 'gray')
+plt.show()
+
+# %%
+## 7
+
+im_gr[im_gr < 127] = 0
+im_gr[im_gr >= 127] = 255
+im_gr.dtype
+
+plt.imshow(im_gr, cmap = 'gray')
+
+# %%
+## 8
+
+print(np.unique(im_gr))
 
 # %% [markdown]
 # ## Image en sépia
