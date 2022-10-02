@@ -193,6 +193,8 @@ plt.show()
 plt.imsave("patchwork.jpg", pw)
 
 # %%
+## 7
+
 pw_read = plt.imread("patchwork.jpg")
 plt.imshow(pw_read)
 plt.show()
@@ -380,4 +382,48 @@ from PIL import Image
 # %%
 ## 2
 
+import os
+size = os.stat("les-mines.jpg")
+print(f"La taille du fichier est : {size.st_size/1000} ko")
 
+
+
+# %%
+## 3
+
+im1 = Image.open("les-mines.jpg")
+im2 = plt.imread("les-mines.jpg")
+
+# %%
+## 4
+
+# Pour vérifier que les valeurs contenues dans les array sont proches, on calcule la distance entre les deux tableaux. 
+# En l'occurence, la distance est nulle, donc les valeurs sont très proches. 
+print(np.linalg.norm(im1-im2))
+
+# %%
+## 5
+
+im1.save('mines_PIL.jpg', quality = 100)
+plt.imsave('mines_plt.jpg', im2)
+
+# %%
+## 6
+
+size_PIL = os.stat("mines_PIL.jpg")
+size_plt = os.stat("mines_plt.jpg")
+print(f"taille du fichier avec PIL (save) : {size_PIL.st_size/1000} ko")
+print(f"taille du fichier avec pyplot (imsave): {size_plt.st_size/1000} ko")
+print("On remarque que l'image enregistrée avec PIL est plus 4 à 5 fois plus lourde que celle enregistrée avec pyplot. \nDans les deux cas la qualité est dégradée par rapport à l'image originale.")
+print("D'ailleurs, on voyait bien à la question 7 de la première partie que le patchwork enregistré puis affiché était beaucoup plus terne que l'original.")
+
+# %%
+## 7
+
+im1 = plt.imread("mines_PIL.jpg")
+im2 = plt.imread("mines_plt.jpg")
+plt.imshow(im1)
+plt.show()
+plt.imshow(im2)
+plt.show()
+print("Ici, les deux images semblent parfaitement identiques malgré leur différence de taille en mémoire dans le disque")
