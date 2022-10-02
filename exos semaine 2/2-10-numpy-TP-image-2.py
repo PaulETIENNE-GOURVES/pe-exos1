@@ -281,6 +281,7 @@ plt.imshow(im_gr, cmap = 'gray')
 
 print(np.unique(im_gr))
 
+
 # %% [markdown]
 # ## Image en sépia
 
@@ -309,7 +310,31 @@ print(np.unique(im_gr))
 # 2. Passez l'image `les-mines.jpg` en sépia   
 
 # %%
-# votre code
+## 1
+
+def sepia(im):
+    coeff = np.array([[0.393, 0.769, 0.189], [0.349, 0.686, 0.168], [0.272, 0.534, 0.131]])
+    mat_coeff = np.ones((3, 3, 3))
+    for k in range(3):
+        mat_coeff[:, :, k] = coeff
+    sepim = np.dot(im, mat_coeff)
+    sepim = sepim / sepim.max()
+    return sepim[:, :, :, 0]
+
+
+# %%
+## 2
+
+pw = plt.imread("patchwork-all.jpg")
+plt.imshow(sepia(pw))
+plt.show()
+
+# %%
+## 3
+
+im = plt.imread("les-mines.jpg")
+plt.imshow(sepia(im))
+plt.show()
 
 # %% {"scrolled": true}
 # INDICE:
@@ -348,4 +373,11 @@ A.shape, B.shape, C.shape
 # 6. Relisez les deux fichiers créés et affichez avec `plt.imshow` leur différence  
 
 # %%
-# votre code
+## 1 
+
+from PIL import Image
+
+# %%
+## 2
+
+
